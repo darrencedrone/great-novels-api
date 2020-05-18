@@ -1,10 +1,10 @@
-CREATE DATABASE greatauthors;
+CREATE DATABASE greatnovels;
 
-CREATE USER 'greatauthors'@'localhost' IDENTIFIED BY 'b3tt3rth@nth3m0v13!';
+CREATE USER 'greatnovels'@'localhost' IDENTIFIED BY 'b3tt3rth@nth3m0v13!';
 
-GRANT ALL ON greatauthors.* TO 'greatauthors'@'localhost';
+GRANT ALL ON greatnovels.* TO 'greatnovels'@'localhost';
 
-USE greatauthors;
+USE greatnovels;
 
 CREATE TABLE authors (
 id INT auto_increment,
@@ -28,11 +28,12 @@ PRIMARY KEY(id)
 CREATE TABLE novels (
 id INT auto_increment,
 title VARCHAR(255),
+authorID INT,
 createdAt DATETIME DEFAULT NOW(),
 updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(id),
-FOREIGN KEY(authorId) REFERENCES authors(id),
+FOREIGN KEY(authorId) REFERENCES authors(id)
 );
 
 CREATE TABLE novelsGenres (
@@ -43,7 +44,7 @@ updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
 PRIMARY KEY(genreId, novelId),
 FOREIGN KEY(genreId) REFERENCES genres(id),
-FOREIGN KEY(novelId) REFERENCES novels(id),
+FOREIGN KEY(novelId) REFERENCES novels(id)
 );
 
 INSERT INTO authors (nameFirst, nameLast) VALUES ('Bram', 'Stoker');
@@ -80,8 +81,8 @@ INSERT INTO genres (name) VALUES ('Science Fiction');
 INSERT INTO genres (name) VALUES ('Dystopia');
 INSERT INTO genres (name) VALUES ('Time Travel');
 INSERT INTO genres (name) VALUES ('African Literature');
-INSERT INTO novels (title, authorId) VALUES ('Dracula', 1);
 
+INSERT INTO novels (title, authorId) VALUES ('Dracula', 1);
 INSERT INTO novels (title, authorId) VALUES ('The Picture of Dorian Gray', 2);
 INSERT INTO novels (title, authorId) VALUES ('The Color Purple', 3);
 INSERT INTO novels (title, authorId) VALUES ('War and Peace', 4);
